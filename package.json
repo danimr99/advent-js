@@ -1,0 +1,19 @@
+{
+  "name": "advent-js",
+  "version": "1.0.0",
+  "description": "Soluciones al AdventJS de @midudev en JavaScript",
+  "type": "module",
+  "scripts": {},
+  "keywords": [
+    "advent-js",
+    "christmas",
+    "challenges",
+    "javascript"
+  ],
+  "author": "Daniel Muelle Ramos",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danimr99/advent-js"
+  }
+}
