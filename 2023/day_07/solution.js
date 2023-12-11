@@ -1,37 +1,34 @@
 function drawGift(size, symbol) {
-  if (size < 2) {
-    return "#".repeat(size) + "\n";
+  if (size === 1) return "#\n";
+
+  let gift = "";
+  const maxLength = size * 2 - 1;
+  const upperBorder = " ".repeat(maxLength - size) + "#".repeat(size);
+  let upperPlane = "";
+  const middleBorder = "#".repeat(size) + symbol.repeat(size - 2) + "#";
+  let lowerPlane = "";
+  const lowerBorder = "#".repeat(size);
+
+  for (let i = 1, j = size - 2; i <= size - 2; i++, j--) {
+    const repBlanks = " ".repeat(maxLength - size - i);
+    const edge1 = "#";
+    const leftRepSymbol = symbol.repeat(size - 2);
+    const edge2 = "#";
+    const upperRightRepSymbol = symbol.repeat(i - 1);
+    const lowerRightRepSymbol = symbol.repeat(j - 1);
+    const edge3 = "#\n";
+    const currentLine = repBlanks + edge1 + leftRepSymbol + edge2;
+    upperPlane += currentLine + upperRightRepSymbol + edge3;
+    lowerPlane += currentLine.trim() + lowerRightRepSymbol + edge3;
   }
 
-  const lines = [];
+  gift += upperBorder + "\n";
+  gift += upperPlane;
+  gift += middleBorder + "\n";
+  gift += lowerPlane;
+  gift += lowerBorder + "\n";
 
-  // First, draw the top part of the gift box
-  lines.push(" ".repeat(size - 1) + "#".repeat(size));
-
-  // Draw the remaining top part of the gift box
-  for (let i = 1; i < size - 1; i++) {
-    lines.push(
-      " ".repeat(size - i - 1) +
-        "#" +
-        symbol.repeat(size - 2) +
-        "#" +
-        symbol.repeat(i - 1) +
-        "#"
-    );
-  }
-
-  // Draw the middle part of the gift box
-  lines.push("#".repeat(size) + symbol.repeat(size - 2) + "#");
-
-  // Reverse the top part to create the other half of the gift box
-  lines.push(
-    ...lines
-      .slice(0, -1)
-      .map((str) => str.replace(/\s+/, ""))
-      .reverse()
-  );
-
-  return lines.join("\n") + "\n";
+  return gift;
 }
 
 console.log(drawGift(4, "+"));

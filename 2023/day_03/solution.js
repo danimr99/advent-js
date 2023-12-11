@@ -2,15 +2,12 @@ const original = "stepfor";
 const modified = "stepor";
 
 function findNaughtyStep(original, modified) {
-  const length = Math.max(original.length, modified.length);
+  if (original === modified) return "";
 
-  for (let i = 0; i < length; i++) {
-    if (original[i] !== modified[i]) {
-      return original.length > modified.length ? original[i] : modified[i];
-    }
-  }
+  let i = 0;
+  while (original[i] === modified[i++]);
 
-  return "";
+  return (original.length > modified.length ? original : modified)[i - 1];
 }
 
 console.log(findNaughtyStep(original, modified));
