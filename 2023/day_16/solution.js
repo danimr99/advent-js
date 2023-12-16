@@ -1,17 +1,19 @@
 function transformTree(tree) {
-  const buildTree = (index) => {
-    if (index >= tree.length || tree[index] === null) return null;
+  function buildBranch(index) {
+    const value = tree[index];
 
-    const node = {
-      value: tree[index],
-      left: buildTree(2 * index + 1),
-      right: buildTree(2 * index + 2),
+    if (value == null) return null;
+
+    const nodeIndex = index * 2;
+
+    return {
+      value: value,
+      left: buildBranch(nodeIndex + 1),
+      right: buildBranch(nodeIndex + 2),
     };
+  }
 
-    return node;
-  };
-
-  const treeObject = buildTree(0);
+  const treeObject = buildBranch(0);
   return treeObject;
 }
 
