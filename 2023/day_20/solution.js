@@ -7,14 +7,14 @@ const input = [
 function distributeGifts(weights) {
   return weights.map((row, i) =>
     row.map((_, j) => {
-      const current = weights[i][j];
+      const current = weights[i]?.[j];
       const left = weights[i]?.[j - 1];
       const right = weights[i]?.[j + 1];
       const top = weights[i - 1]?.[j];
       const bottom = weights[i + 1]?.[j];
 
       const existingValues = [current, left, right, top, bottom].filter(
-        (x) => x != null
+        Boolean
       );
 
       return Math.round(
