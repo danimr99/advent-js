@@ -1,17 +1,19 @@
 const movements = ">>*<";
 
 function maxDistance(movements) {
-  let distance = 0;
+  let maxLeft = 0;
+  let maxRight = 0;
 
-  let right = movements.match(/>/g)?.length ?? 0;
-  let left = movements.match(/</g)?.length ?? 0;
+  for (const movement of movements) {
+    const rightPoint = +(movement === ">");
+    const leftPoint = +(movement === "<");
+    const extraPoint = +(movement === "*");
 
-  distance += right;
-  distance -= left;
+    maxRight += rightPoint - leftPoint + extraPoint;
+    maxLeft += leftPoint - rightPoint + extraPoint;
+  }
 
-  let extra = movements.length - (right + left);
-
-  return Math.abs(distance) + extra;
+  return Math.max(maxLeft, maxRight);
 }
 
 console.log(maxDistance(movements));
