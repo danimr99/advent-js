@@ -1,28 +1,26 @@
 function organizeChristmasDinner(dishes) {
-  const ingredients = new Map();
+  let ingredients = new Map();
 
   for (const dish of dishes) {
-    const dishName = dish[0];
-    const dishIngredients = dish.slice(1);
+    for (const elem of dish.slice(1)) {
+      let arr = ingredients.get(elem);
 
-    for (const ingredient of dishIngredients) {
-      if (ingredients.has(ingredient)) {
-        ingredients.get(ingredient).push(dishName);
-      } else {
-        ingredients.set(ingredient, [dishName]);
-      }
+      arr ||= [];
+      arr.push(dish[0]);
+      ingredients.set(elem, arr);
     }
   }
 
-  const organizedDishes = [];
+  let result = [];
 
-  for (const [ingredient, dishes] of ingredients) {
-    if (dishes.length >= 2) {
-      organizedDishes.push([ingredient, ...dishes.sort()]);
+  for (const ingredient of ingredients) {
+    if (ingredient.flat().length > 2) {
+      ingredient[1].sort();
+      result.push(ingredient.flat());
     }
   }
 
-  organizedDishes.sort();
+  result.sort();
 
-  return organizedDishes;
+  return result;
 }
