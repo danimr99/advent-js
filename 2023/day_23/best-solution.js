@@ -6,18 +6,23 @@ function organizeChristmasDinner(dishes) {
     const dishIngredients = dish.slice(1);
 
     for (const ingredient of dishIngredients) {
-      if (!ingredients.has(ingredient)) {
-        ingredients.set(ingredient, []);
+      if (ingredients.has(ingredient)) {
+        ingredients.get(ingredient).push(dishName);
+      } else {
+        ingredients.set(ingredient, [dishName]);
       }
-
-      ingredients.get(ingredient)?.push(dishName);
     }
   }
 
-  const organizedDishes = [...ingredients.entries()]
-    .filter(([, dishes]) => dishes.length >= 2)
-    .map(([ingredient, dishes]) => [ingredient, ...dishes.sort()])
-    .sort();
+  const organizedDishes = [];
+
+  for (const [ingredient, dishes] of ingredients) {
+    if (dishes.length >= 2) {
+      organizedDishes.push([ingredient, ...dishes.sort()]);
+    }
+  }
+
+  organizedDishes.sort();
 
   return organizedDishes;
 }
