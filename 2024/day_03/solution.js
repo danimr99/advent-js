@@ -2,15 +2,10 @@ function organizeInventory(inventory) {
   const result = {};
 
   for (const { name, quantity, category } of inventory) {
-    if (!result[category]) {
-      result[category] = {};
-    }
-
-    if (!result[category][name]) {
-      result[category][name] = 0;
-    }
-
-    result[category][name] += quantity;
+    result[category] = {
+      ...result[category],
+      [name]: (result[category]?.[name] || 0) + quantity,
+    };
   }
 
   return result;
