@@ -1,9 +1,19 @@
 function organizeInventory(inventory) {
-  return inventory.reduce((acc, { name, quantity, category }) => {
-    acc[category] = acc[category] || {};
-    acc[category][name] = (acc[category][name] || 0) + quantity;
-    return acc;
-  }, {});
+  const result = {};
+
+  for (const { name, quantity, category } of inventory) {
+    if (!result[category]) {
+      result[category] = {};
+    }
+
+    if (!result[category][name]) {
+      result[category][name] = 0;
+    }
+
+    result[category][name] += quantity;
+  }
+
+  return result;
 }
 
 const inventary1 = [
