@@ -1,23 +1,18 @@
 function organizeShoes(shoes) {
-  // Count how many shoes of each size and type we have
-  const count = {};
-
-  for (const shoe of shoes) {
-    if (!count[shoe.size]) {
-      count[shoe.size] = { I: 0, R: 0 };
-    }
-
-    count[shoe.size][shoe.type]++;
-  }
-
-  // Count how many pairs we can make
+  const count = new Map();
   const sizes = [];
 
-  for (const size in count) {
-    while (count[size].I > 0 && count[size].R > 0) {
-      sizes.push(Number(size));
-      count[size].I--;
-      count[size].R--;
+  for (const { type, size } of shoes) {
+    if (!count.has(size)) {
+      count.set(size, { I: 0, R: 0 });
+    }
+
+    count.get(size)[type]++;
+
+    if (count.get(size).I > 0 && count.get(size).R > 0) {
+      sizes.push(size);
+      count.get(size).I--;
+      count.get(size).R--;
     }
   }
 
