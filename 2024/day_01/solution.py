@@ -1,4 +1,4 @@
-def prepare_gifts(gifts):
+def prepare_gifts(gifts: list[int | float]) -> list[int | float]:
   # Filter non-numeric values
   gifts = [g for g in gifts if isinstance(g, (int, float))]
   
