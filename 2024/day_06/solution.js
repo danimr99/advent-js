@@ -1,13 +1,14 @@
 function inBox(box) {
-  for (let i = 1; i < box.length - 1; i++) {
+  for (const row of box.slice(1, -1)) {
     if (
-      box[i].includes("*") &&
-      box[i].indexOf("*") > 0 &&
-      box[i].indexOf("*") < box[i].length - 1
+      row.includes("*") &&
+      row.indexOf("*") > 0 &&
+      row.indexOf("*") < row.length - 1
     ) {
       return true;
     }
   }
+
   return false;
 }
 
