@@ -1,20 +1,11 @@
 function fixPackages(packages) {
-  let stack = [];
-  let result = "";
-
-  for (let i = 0; i < packages.length; i++) {
-    if (packages[i] === "(") {
-      stack.push(result);
-      result = "";
-    } else if (packages[i] === ")") {
-      let temp = stack.pop();
-      result = temp + result.split("").reverse().join("");
-    } else {
-      result += packages[i];
-    }
+  while (packages.includes("(")) {
+    packages = packages.replace(/\(([^()]*)\)/g, (_, p1) =>
+      p1.split("").reverse().join("")
+    );
   }
 
-  return result;
+  return packages;
 }
 
 console.log(fixPackages("a(cb)de")); // ➞ "abcde"
