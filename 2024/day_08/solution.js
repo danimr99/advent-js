@@ -1,18 +1,20 @@
 function drawRace(indices, length) {
-  return indices
-    .map((position, index) => {
-      const lane = Array(length).fill("~");
-      const reindeerPosition = position >= 0 ? position : length + position;
+  const result = [];
 
-      if (position !== 0) {
-        lane[reindeerPosition] = "r";
-      }
+  for (const [index, position] of indices.entries()) {
+    const lane = Array(length).fill("~");
+    const reindeerPosition = position >= 0 ? position : length + position;
 
-      return `${" ".repeat(indices.length - 1 - index)}${lane.join("")} /${
-        index + 1
-      }`;
-    })
-    .join("\n");
+    if (position !== 0) {
+      lane[reindeerPosition] = "r";
+    }
+
+    result.push(
+      `${" ".repeat(indices.length - 1 - index)}${lane.join("")} /${index + 1}`
+    );
+  }
+
+  return result.join("\n");
 }
 
 console.log(drawRace([0, 5, -3], 10));
