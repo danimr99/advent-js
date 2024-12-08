@@ -1,31 +1,17 @@
 function drawRace(indices, length) {
-  const lanes = indices.map((position, index) => {
-    // Initialize the lane with snow
-    const lane = Array(length).fill("~");
+  return indices
+    .map((position, index) => {
+      const lane = Array(length).fill("~");
+      const reindeerPosition = position >= 0 ? position : length + position;
 
-    // Determine the reindeer's position
-    let reindeerPos;
+      if (position !== 0) {
+        lane[reindeerPosition] = "r";
+      }
 
-    if (position > 0) {
-      reindeerPos = position;
-    } else if (position < 0) {
-      reindeerPos = length + position; // Calculate from the end
-    }
-
-    // Place the reindeer if applicable
-    if (position !== 0) {
-      lane[reindeerPos] = "r";
-    }
-
-    return lane.join("");
-  });
-
-  // Apply isometric formatting and add lane numbers
-  return lanes
-    .map(
-      (lane, index) =>
-        `${" ".repeat(indices.length - 1 - index)}${lane} /${index + 1}`
-    )
+      return `${" ".repeat(indices.length - 1 - index)}${lane.join("")} /${
+        index + 1
+      }`;
+    })
     .join("\n");
 }
 
