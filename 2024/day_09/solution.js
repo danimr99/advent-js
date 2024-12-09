@@ -11,7 +11,8 @@ function moveTrain(board, mov) {
   if (newX < 0 || newX >= board.length || newY < 0 || newY >= board[0].length)
     return "crash";
 
-  return { "@": "crash", o: "crash", "*": "eat" }[board[newX][newY]] || "none";
+  const outcomes = { "@": "crash", o: "crash", "*": "eat" };
+  return outcomes[board[newX][newY]] || "none";
 }
 
 const board = ["·····", "*····", "@····", "o····", "o····"];
