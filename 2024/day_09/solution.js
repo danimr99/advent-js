@@ -1,18 +1,18 @@
 function moveTrain(board, mov) {
   const directions = { L: [0, -1], R: [0, 1], U: [-1, 0], D: [1, 0] };
   const [dx, dy] = directions[mov];
-  const [x, y] = board.reduce(
-    (acc, row, i) => (row.includes("@") ? [i, row.indexOf("@")] : acc),
-    []
-  );
+
+  // Find train's head (@)
+  const x = board.findIndex((row) => row.includes("@"));
+  const y = board[x].indexOf("@");
 
   const [newX, newY] = [x + dx, y + dy];
 
+  // Validate position and return result
   if (newX < 0 || newX >= board.length || newY < 0 || newY >= board[0].length)
     return "crash";
 
-  const outcomes = { "@": "crash", o: "crash", "*": "eat" };
-  return outcomes[board[newX][newY]] || "none";
+  return { "@": "crash", o: "crash", "*": "eat" }[board[newX][newY]] || "none";
 }
 
 const board = ["·····", "*····", "@····", "o····", "o····"];
