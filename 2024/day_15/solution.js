@@ -38,6 +38,7 @@ console.log(
     { name: "Charlie", city: "New York" },
   ])
 );
+
 console.log(
   drawTable([
     { gift: "Doll", quantity: 10 },
