@@ -22,20 +22,20 @@ function isRobotBack(moves) {
     let move = moves[i];
     let intensity = 1;
 
-    if (move === "*") {
-      intensity = 2;
-      move = moves[++i];
-    }
-
-    if (move === "!") {
-      inverted = !inverted;
-      move = moves[++i];
-    }
-
-    if (move === "?") {
-      let nextMove = moves[++i];
-      if (visited.has(nextMove)) continue;
-      move = nextMove;
+    switch (move) {
+      case "*":
+        intensity = 2;
+        move = moves[++i];
+        break;
+      case "!":
+        inverted = !inverted;
+        move = moves[++i];
+        break;
+      case "?":
+        let nextMove = moves[++i];
+        if (visited.has(nextMove)) continue;
+        move = nextMove;
+        break;
     }
 
     if (inverted) {
