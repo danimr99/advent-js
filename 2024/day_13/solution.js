@@ -1,52 +1,39 @@
 function isRobotBack(moves) {
   let x = 0,
     y = 0;
-  let inverted = false;
-  let visited = new Set();
+  const visited = new Set();
 
-  const moveActions = {
-    L: (intensity) => (x -= intensity),
-    R: (intensity) => (x += intensity),
-    U: (intensity) => (y += intensity),
-    D: (intensity) => (y -= intensity),
-  };
+  const moveDelta = { L: [-1, 0], R: [1, 0], U: [0, 1], D: [0, -1] };
 
-  const invertedMoves = {
-    L: "R",
-    R: "L",
-    U: "D",
-    D: "U",
+  const invertMove = (move) => {
+    const inverted = { L: "R", R: "L", U: "D", D: "U" };
+    return inverted[move] || move;
   };
 
   for (let i = 0; i < moves.length; i++) {
     let move = moves[i];
     let intensity = 1;
 
-    switch (move) {
-      case "*":
-        intensity = 2;
-        move = moves[++i];
-        break;
-      case "!":
-        inverted = !inverted;
-        move = moves[++i];
-        break;
-      case "?":
-        let nextMove = moves[++i];
-        if (visited.has(nextMove)) continue;
-        move = nextMove;
-        break;
+    if (move === "*") {
+      intensity = 2;
+      move = moves[++i];
     }
 
-    if (inverted) {
-      move = invertedMoves[move] || move;
-      inverted = false;
+    if (move === "!") {
+      move = invertMove(moves[++i]);
     }
 
-    visited.add(move);
+    if (move === "?") {
+      const nextMove = moves[++i];
+      if (visited.has(nextMove)) continue;
+      move = nextMove;
+    }
 
-    if (moveActions[move]) {
-      moveActions[move](intensity);
+    if (moveDelta[move]) {
+      const [dx, dy] = moveDelta[move];
+      x += dx * intensity;
+      y += dy * intensity;
+      visited.add(move);
     }
   }
 
