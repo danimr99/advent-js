@@ -12,30 +12,17 @@ function detectBombs(grid) {
 
   const result = [];
 
-  for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
-    const rowResult = [];
-
-    for (
-      let columnIndex = 0;
-      columnIndex < grid[rowIndex].length;
-      columnIndex++
-    ) {
-      let count = 0;
-
-      for (const [dx, dy] of directions) {
+  grid.forEach((row, rowIndex) => {
+    const rowResult = row.map((_, columnIndex) => {
+      return directions.reduce((count, [dx, dy]) => {
         const x = rowIndex + dx;
         const y = columnIndex + dy;
-
-        if (grid[x] && grid[x][y]) {
-          count++;
-        }
-      }
-
-      rowResult.push(count);
-    }
+        return count + (grid[x] && grid[x][y] ? 1 : 0);
+      }, 0);
+    });
 
     result.push(rowResult);
-  }
+  });
 
   return result;
 }
