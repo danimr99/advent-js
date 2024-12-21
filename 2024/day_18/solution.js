@@ -1,28 +1,27 @@
 function findInAgenda(agenda, phone) {
-  const entries = agenda
-    .split("\n")
-    .map((line) => {
-      const phoneMatch = line.match(/\+\d{1,2}-\d{3}-\d{3}-\d{3}/);
-      const nameMatch = line.match(/<([^>]+)>/);
+  const lines = agenda.split("\n");
+  let result = null;
 
-      if (!phoneMatch || !nameMatch) return null;
+  for (const line of lines) {
+    const phoneMatch = line.match(/\+\d{1,2}-\d{3}-\d{3}-\d{3}/);
+    const nameMatch = line.match(/<([^>]+)>/);
 
-      return {
-        phone: phoneMatch[0],
-        name: nameMatch[1],
-        address: line
-          .replace(phoneMatch[0], "")
-          .replace(nameMatch[0], "")
-          .trim(),
-      };
-    })
-    .filter(Boolean);
+    if (phoneMatch && nameMatch && phoneMatch[0].includes(phone)) {
+      const address = line
+        .replace(phoneMatch[0], "")
+        .replace(nameMatch[0], "")
+        .trim();
 
-  const matches = entries.filter((entry) => entry.phone.includes(phone));
+      // Cannot have multiple matches
+      if (result) {
+        return null;
+      }
 
-  return matches.length === 1
-    ? { name: matches[0].name, address: matches[0].address }
-    : null;
+      result = { name: nameMatch[1], address: address };
+    }
+  }
+
+  return result;
 }
 
 const agenda = `+34-600-123-456 Calle Gran Via 12 <Juan Perez>
