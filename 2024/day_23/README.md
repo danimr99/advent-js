@@ -18,6 +18,6 @@ findMissingNumbers([4, 8, 7, 2]);
 findMissingNumbers([3, 2, 1, 1]);
 // []
 
-findDisappearedNumbers([5, 5, 5, 3, 3, 2, 1]);
+findMissingNumbers([5, 5, 5, 3, 3, 2, 1]);
 // [4]
 ```
