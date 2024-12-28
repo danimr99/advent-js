@@ -1,4 +1,4 @@
-export function isTreesSynchronized(tree1, tree2) {
+function isTreesSynchronized(tree1, tree2) {
   function mirror(t1, t2) {
     if (!t1 && !t2) return true;
     if (!t1 || !t2) return false;
