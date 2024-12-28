@@ -14,33 +14,18 @@ function execute(code) {
         break;
       case "[":
         if (counter === 0) {
-          let brackets = 1;
-          while (brackets > 0) {
-            pointer++;
-            if (code[pointer] === "[") brackets++;
-            if (code[pointer] === "]") brackets--;
-          }
+          pointer = code.indexOf("]", pointer);
         }
         break;
       case "]":
         if (counter !== 0) {
-          let brackets = 1;
-          while (brackets > 0) {
-            pointer--;
-            if (code[pointer] === "]") brackets++;
-            if (code[pointer] === "[") brackets--;
-          }
+          pointer = code.lastIndexOf("[", pointer);
           continue;
         }
         break;
       case "{":
         if (counter === 0) {
-          let braces = 1;
-          while (braces > 0) {
-            pointer++;
-            if (code[pointer] === "{") braces++;
-            if (code[pointer] === "}") braces--;
-          }
+          pointer = code.indexOf("}", pointer);
         }
         break;
     }
