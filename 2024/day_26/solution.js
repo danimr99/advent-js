@@ -1,21 +1,12 @@
 function getCompleted(timeWorked, totalTime) {
-  function getSeconds(timeStr) {
-    let parts = [];
-    let current = "";
-    for (let char of timeStr) {
-      if (char === ":") {
-        parts.push(current);
-        current = "";
-      } else {
-        current += char;
-      }
-    }
-    parts.push(current);
-
+  function getSeconds(str) {
+    const parts = str.split(":");
     let total = 0;
-    for (let part of parts) {
-      total = total * 60 + parseInt(part, 10);
+
+    for (let i = 0; i < parts.length; i++) {
+      total = total * 60 + parseInt(parts[i], 10);
     }
+
     return total;
   }
 
